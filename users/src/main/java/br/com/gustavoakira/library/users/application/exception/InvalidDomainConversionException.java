@@ -1,4 +1,4 @@
-package br.com.gustavoakira.library.users.application.domain.exception;
+package br.com.gustavoakira.library.users.application.exception;
 
 public class InvalidDomainConversionException extends RuntimeException{
     public InvalidDomainConversionException(String message) {

@@ -2,11 +2,12 @@ package br.com.gustavoakira.library.users.adapters.outbound.persistence;
 
 import br.com.gustavoakira.library.users.adapters.outbound.persistence.entities.UserEntity;
 import br.com.gustavoakira.library.users.application.domain.User;
-import br.com.gustavoakira.library.users.application.domain.port.UserRepositoryPort;
+import br.com.gustavoakira.library.users.application.port.UserRepositoryPort;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public class UserRepositoryPortImpl implements UserRepositoryPort {
 
     private final SpringDataUserRepository repository;
