@@ -25,4 +25,19 @@ class RoleTest {
         assertDoesNotThrow(()->new Role(1L,"admin"));
     }
 
+
+    @Test
+    void shouldReturnRoleNameWhenGetNameIsCalled() throws Exception {
+        String name = "admin";
+        assertEquals("admin", new Role(name).getName());
+    }
+
+    @Test
+    void shouldReturnRoleNIdWhenGetIdIsCalled() throws Exception {
+        String name = "admin";
+        Long id = 1L;
+        assertEquals(id, new Role(id,name).getId());
+    }
+
+
 }
