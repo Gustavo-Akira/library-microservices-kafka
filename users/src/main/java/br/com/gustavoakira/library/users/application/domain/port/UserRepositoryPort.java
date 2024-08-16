@@ -8,4 +8,6 @@ public interface UserRepositoryPort {
     List<User> findAll(int page);
     User findById(Long id);
     User save(User user);
+    User findByEmail(String email);
+    boolean removeUser(Long id);
 }

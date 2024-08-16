@@ -29,10 +29,10 @@ class RoleRepositoryPortImplTest {
     void findAll() {
         List<RoleEntity> mockedList = Instancio.stream(RoleEntity.class).limit(3).toList();
         Mockito.when(repository.findAll()).thenReturn(mockedList);
-        assertAll(()->{
-            assertEquals(mockedList.size(),roleRepositoryPort.findAll().size());
-            assertEquals(mockedList.get(0).getName(), roleRepositoryPort.findAll().get(0).getName());
-        });
+        assertAll(
+                ()-> assertEquals(mockedList.size(),roleRepositoryPort.findAll().size()),
+                ()->assertEquals(mockedList.get(0).getName(), roleRepositoryPort.findAll().get(0).getName())
+        );
 
     }
 

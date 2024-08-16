@@ -14,10 +14,10 @@ class UserTest {
     @ParameterizedTest
     @MethodSource("provideInvalidUserParameters")
     void shouldThrowValidationExceptionWhenUserIsInvalid(Long id, String name, String email, String password, Role role){
-        assertAll(()->{
-            assertThrows(InvalidDomainConversionException.class,()->new User(id,name,email,password,role));
-            assertThrows(InvalidDomainConversionException.class,()->new User(name,email,password,role));
-        });
+        assertAll(
+                ()->assertThrows(InvalidDomainConversionException.class,()->new User(id,name,email,password,role)),
+                ()->assertThrows(InvalidDomainConversionException.class,()->new User(name,email,password,role))
+        );
 
     }
 

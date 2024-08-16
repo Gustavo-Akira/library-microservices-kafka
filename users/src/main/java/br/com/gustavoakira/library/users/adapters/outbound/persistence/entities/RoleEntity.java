@@ -1,9 +1,7 @@
 package br.com.gustavoakira.library.users.adapters.outbound.persistence.entities;
 
 import br.com.gustavoakira.library.users.application.domain.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -11,6 +9,7 @@ import lombok.Data;
 public class RoleEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column()
     private String name;
@@ -22,5 +21,9 @@ public class RoleEntity {
 
     public Role toDomain(){
         return new Role(id,name);
+    }
+
+    public static RoleEntity fromDomain(Role role){
+        return new RoleEntity(role.getId(), role.getName());
     }
 }
