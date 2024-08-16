@@ -1,5 +1,6 @@
 package br.com.gustavoakira.library.users.application.domain;
 
+import br.com.gustavoakira.library.users.application.domain.exception.InvalidDomainConversionException;
 import jakarta.xml.bind.ValidationException;
 import org.junit.jupiter.api.Test;
 
@@ -9,14 +10,14 @@ class RoleTest {
 
     @Test
     void shouldThrowValidationExceptionWhenNameIsNull(){
-         assertThrows(Exception.class,()-> new Role(null));
-        assertThrows(Exception.class, ()->new Role(1L,null));
+         assertThrows(InvalidDomainConversionException.class,()-> new Role(null));
+        assertThrows(InvalidDomainConversionException.class, ()->new Role(1L,null));
     }
 
     @Test
     void shouldThrowValidationExceptionWhenNameIsEmpty(){
-        assertThrows(Exception.class, ()->new Role(""));
-        assertThrows(Exception.class, ()->new Role(1L,""));
+        assertThrows(InvalidDomainConversionException.class, ()->new Role(""));
+        assertThrows(InvalidDomainConversionException.class, ()->new Role(1L,""));
     }
 
     @Test
@@ -27,13 +28,13 @@ class RoleTest {
 
 
     @Test
-    void shouldReturnRoleNameWhenGetNameIsCalled() throws Exception {
+    void shouldReturnRoleNameWhenGetNameIsCalled(){
         String name = "admin";
         assertEquals("admin", new Role(name).getName());
     }
 
     @Test
-    void shouldReturnRoleNIdWhenGetIdIsCalled() throws Exception {
+    void shouldReturnRoleNIdWhenGetIdIsCalled() {
         String name = "admin";
         Long id = 1L;
         assertEquals(id, new Role(id,name).getId());

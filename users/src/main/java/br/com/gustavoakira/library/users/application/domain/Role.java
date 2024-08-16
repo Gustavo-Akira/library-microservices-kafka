@@ -1,24 +1,26 @@
 package br.com.gustavoakira.library.users.application.domain;
 
+import br.com.gustavoakira.library.users.application.domain.exception.InvalidDomainConversionException;
+
 import java.util.Objects;
 
 public class Role {
     private Long id;
     private String name;
-    public Role(String name) throws Exception {
+    public Role(String name) {
         this.name = name;
         validate();
     }
 
-    public  Role(Long id, String name) throws Exception {
+    public  Role(Long id, String name){
         this.id = id;
         this.name = name;
         validate();
     }
 
-    private void validate() throws Exception {
+    private void validate(){
         if(this.name == null || this.name.isEmpty()){
-            throw new Exception("");
+            throw new InvalidDomainConversionException("");
         }
     }
 

@@ -1,5 +1,7 @@
 package br.com.gustavoakira.library.users.application.domain;
 
+import br.com.gustavoakira.library.users.application.domain.exception.InvalidDomainConversionException;
+
 public class User {
     private Long id;
     private String name;
@@ -7,7 +9,7 @@ public class User {
     private String password;
     private Role role;
 
-    public User(Long id, String name, String email, String password, Role role) throws Exception {
+    public User(Long id, String name, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -16,7 +18,7 @@ public class User {
         validate();
     }
 
-    public User(String name, String email, String password, Role role) throws Exception {
+    public User(String name, String email, String password, Role role)  {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -24,15 +26,15 @@ public class User {
         validate();
     }
 
-    private void validate() throws Exception {
+    private void validate(){
         if(this.name == null || this.name.isEmpty()){
-            throw new Exception("Name cannot be null");
+            throw new InvalidDomainConversionException("Name cannot be null");
         }
         if(this.password == null || this.password.isEmpty()){
-            throw new Exception("Password cannot be null");
+            throw new InvalidDomainConversionException("Password cannot be null");
         }
         if(this.email == null || this.email.isEmpty()){
-            throw new Exception("Email cannot be null");
+            throw new InvalidDomainConversionException("Email cannot be null");
         }
     }
 

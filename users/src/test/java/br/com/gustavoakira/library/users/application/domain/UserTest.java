@@ -1,5 +1,6 @@
 package br.com.gustavoakira.library.users.application.domain;
 
+import br.com.gustavoakira.library.users.application.domain.exception.InvalidDomainConversionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,8 +15,8 @@ class UserTest {
     @MethodSource("provideInvalidUserParameters")
     void shouldThrowValidationExceptionWhenUserIsInvalid(Long id, String name, String email, String password, Role role){
         assertAll(()->{
-            assertThrows(Exception.class,()->new User(id,name,email,password,role));
-            assertThrows(Exception.class,()->new User(name,email,password,role));
+            assertThrows(InvalidDomainConversionException.class,()->new User(id,name,email,password,role));
+            assertThrows(InvalidDomainConversionException.class,()->new User(name,email,password,role));
         });
 
     }

@@ -20,7 +20,7 @@ public class RoleEntity {
         this.name = name;
     }
 
-    public Role toDomain() throws Exception {
+    public Role toDomain(){
         return new Role(id,name);
     }
 }

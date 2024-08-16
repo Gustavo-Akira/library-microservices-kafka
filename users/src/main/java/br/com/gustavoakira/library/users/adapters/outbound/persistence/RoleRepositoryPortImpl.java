@@ -17,14 +17,7 @@ public class RoleRepositoryPortImpl implements RoleRepositoryPort {
 
     @Override
     public List<Role> findAll() {
-        return this.repository.findAll().stream().map(roleEntity -> {
-            try {
-                return roleEntity.toDomain();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
+        return this.repository.findAll().stream().map(RoleEntity::toDomain).collect(Collectors.toList());
     }
 
     @Override
