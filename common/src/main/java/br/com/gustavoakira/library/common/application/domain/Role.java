@@ -1,6 +1,7 @@
-package br.com.gustavoakira.library.users.application.domain;
+package br.com.gustavoakira.library.common.application.domain;
 
-import br.com.gustavoakira.library.users.application.exception.InvalidDomainConversionException;
+
+import br.com.gustavoakira.library.common.exception.InvalidDomainConversionException;
 
 import java.util.Objects;
 

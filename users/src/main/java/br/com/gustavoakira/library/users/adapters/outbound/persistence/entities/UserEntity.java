@@ -18,14 +18,12 @@ public class UserEntity {
     private String email;
     private String password;
 
-    @ManyToOne
-    private RoleEntity role;
 
     public User toDomain(){
-        return new User(id, name, email, password, role.toDomain());
+        return new User(id, name, email, password);
     }
 
     public static UserEntity fromDomain(User user){
-        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword(), RoleEntity.fromDomain(user.getRole()));
+        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword());
     }
 }
