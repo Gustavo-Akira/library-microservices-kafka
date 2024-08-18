@@ -1,10 +1,7 @@
 package br.com.gustavoakira.library.users.adapters.outbound.persistence.entities;
 
 import br.com.gustavoakira.library.users.application.domain.User;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,6 +1,6 @@
 package br.com.gustavoakira.library.users.application.domain;
 
-import br.com.gustavoakira.library.users.application.domain.exception.InvalidDomainConversionException;
+import br.com.gustavoakira.library.users.application.exception.InvalidDomainConversionException;
 import jakarta.xml.bind.ValidationException;
 import org.junit.jupiter.api.Test;
 
