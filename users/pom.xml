@@ -78,6 +78,11 @@
 			<version>5.0.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>br.com.gustavoakira.library</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

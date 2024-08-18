@@ -18,15 +18,34 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: library-user
+      POSTGRES_PASSWORD: library123
+      POSTGRES_DB: library-user
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
   app:
     image: akira2002/library-user
     build:
-      context: .
+      context: /users/
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_DATABASE_URL: db:5432/library-user
+      DATABASE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_DATABASE_USERNAME: library-user
+      SPRING_DATABASE_PASSWORD: library123
     depends_on:
       - kafka
+      - db
+volumes:
+  db_data:
+    driver: local
