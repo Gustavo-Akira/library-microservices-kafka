@@ -54,6 +54,20 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8070:8070"
+    depends_on:
+      - app
+  gateway:
+    image: akira2002/gateway-library
+    build:
+      context: /gatewayserver/
+      dockerfile: Dockerfile
+    ports:
+      - "8072:8072"
+    depends_on:
+      - app
+      - eureka-server
+
+
 volumes:
   db_data:
     driver: local
