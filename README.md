@@ -27,3 +27,8 @@ The front-end of the application is built as a Server Side Rendering (SSR) using
 
 
 
+# Architecture
+
+The architecture consists of a Spring Cloud Gateway and a Eureka Server for service discovery. Each microservice registers with the Eureka Server, allowing the gateway to dynamically retrieve and route requests to the appropriate microservices based on their registration in the Eureka Server.
+
+![Eureka test](eureka.png)
