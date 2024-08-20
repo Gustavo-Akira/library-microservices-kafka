@@ -1,5 +1,6 @@
 package br.com.gustavoakira.library.users.adapters.outbound.persistence;
 
+import br.com.gustavoakira.library.common.adapters.event.UpdateUserEvent;
 import br.com.gustavoakira.library.users.adapters.outbound.persistence.entities.UserEntity;
 import br.com.gustavoakira.library.users.adapters.outbound.producer.UpdatedUserInformationProducer;
 import br.com.gustavoakira.library.users.application.domain.User;
@@ -32,7 +33,7 @@ public class UserRepositoryPortImpl implements UserRepositoryPort {
     @Override
     public User save(User user) {
         if(this.repository.findById(user.getId()).isPresent()){
-            this.producer.send(user.getId().toString());
+            this.producer.send(new UpdateUserEvent(user.getId().toString(),user.getEmail()));
         }
         return this.repository.save(UserEntity.fromDomain(user)).toDomain();
     }
