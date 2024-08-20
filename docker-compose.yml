@@ -6,6 +6,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ms-library
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -16,6 +18,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - ms-library
     depends_on:
       - zookeeper
   db:
@@ -25,6 +29,8 @@ services:
       POSTGRES_USER: library-user
       POSTGRES_PASSWORD: library123
       POSTGRES_DB: library-user
+    networks:
+      - ms-library
     ports:
       - "5432:5432"
     volumes:
@@ -37,6 +43,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    networks:
+      - ms-library
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATABASE_URL: jdbc:postgresql://db:5432/library-user
@@ -54,6 +62,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8070:8070"
+    networks:
+      - ms-library
     depends_on:
       - app
   gateway:
@@ -63,6 +73,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8072:8072"
+    networks:
+      - ms-library
     depends_on:
       - app
       - eureka-server
@@ -71,3 +83,8 @@ services:
 volumes:
   db_data:
     driver: local
+
+networks:  
+  ms-library:  
+    name: ms-library  
+    driver: bridge
