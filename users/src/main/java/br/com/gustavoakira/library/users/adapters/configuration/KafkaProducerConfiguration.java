@@ -25,6 +25,7 @@ public class KafkaProducerConfiguration {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, server);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        configProps.put(ProducerConfig.CLIENT_ID_CONFIG,"notification_id");
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
