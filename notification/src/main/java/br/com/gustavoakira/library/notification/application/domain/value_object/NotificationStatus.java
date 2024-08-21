@@ -23,8 +23,8 @@ public class NotificationStatus{
         return new NotificationStatus("cancelled");
     }
 
-    public boolean equalsStatus(String status){
-        return status.equals(this.status);
+    public String getStatus() {
+        return status;
     }
 
     @Override
