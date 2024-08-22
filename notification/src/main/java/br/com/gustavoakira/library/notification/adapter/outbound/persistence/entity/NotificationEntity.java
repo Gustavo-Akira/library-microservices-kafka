@@ -1,6 +1,8 @@
 package br.com.gustavoakira.library.notification.adapter.outbound.persistence.entity;
 
+import br.com.gustavoakira.library.common.exception.InvalidDomainConversionException;
 import br.com.gustavoakira.library.notification.application.domain.Notification;
+import br.com.gustavoakira.library.notification.application.domain.value_object.NotificationStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,5 +30,19 @@ public class NotificationEntity {
         entity.setStatus(notification.getStatus().getStatus());
         entity.setMessage(notification.getValue());
         return entity;
+    }
+
+    public Notification toDomain() {
+        switch (status){
+            case "start":
+                return new Notification(id,email,message,NotificationStatus.start());
+            case "cancelled":
+                return new Notification(id,email,message,NotificationStatus.cancelled());
+            case "finished":
+                return new Notification(id,email,message,NotificationStatus.finished());
+            default:
+                throw new InvalidDomainConversionException("Status of notification Invalid");
+        }
+
     }
 }

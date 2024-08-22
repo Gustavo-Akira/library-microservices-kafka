@@ -15,10 +15,6 @@ public class NotificationStatus{
         return new NotificationStatus("start");
     }
 
-    public static NotificationStatus run(){
-        return new NotificationStatus("run");
-    }
-
     public static NotificationStatus cancelled(){
         return new NotificationStatus("cancelled");
     }

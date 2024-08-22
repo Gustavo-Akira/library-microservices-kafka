@@ -1,5 +1,6 @@
 package br.com.gustavoakira.library.notification.adapter.outbound.persistence;
 
+import br.com.gustavoakira.library.notification.adapter.outbound.persistence.entity.NotificationEntity;
 import br.com.gustavoakira.library.notification.application.domain.Notification;
 import br.com.gustavoakira.library.notification.application.domain.value_object.NotificationStatus;
 import br.com.gustavoakira.library.notification.application.port.NotificationRepositoryPort;
@@ -18,16 +19,16 @@ public class NotificationRepositoryPortImpl implements NotificationRepositoryPor
 
     @Override
     public Notification save(Notification notification) {
-        return null;
+        return repository.save(NotificationEntity.fromDomain(notification)).toDomain();
     }
 
     @Override
     public Notification getNotification(Long id) {
-        return null;
+        return repository.findById(id).orElseThrow().toDomain();
     }
 
     @Override
     public List<Notification> findAllByStatus(NotificationStatus status) {
-        return null;
+        return repository.findAllByStatus(status.getStatus()).stream().map(NotificationEntity::toDomain).toList();
     }
 }
