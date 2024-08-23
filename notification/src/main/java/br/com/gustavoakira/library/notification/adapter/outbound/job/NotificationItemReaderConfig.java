@@ -22,7 +22,7 @@ public class NotificationItemReaderConfig {
     public ItemReader<NotificationEntity> notificationItemReader() {
         String sql = "SELECT * FROM notification where status='start'";
         return new JdbcCursorItemReaderBuilder<NotificationEntity>()
-                .name("activeOrderReader")
+                .name("notificationItemReader")
                 .sql(sql)
                 .dataSource(dataSource)
                 .rowMapper(new NotificationEntityMapper())

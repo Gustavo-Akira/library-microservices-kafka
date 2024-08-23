@@ -15,8 +15,8 @@ public class NotificationStatus{
         return new NotificationStatus("start");
     }
 
-    public static NotificationStatus cancelled(){
-        return new NotificationStatus("cancelled");
+    public static NotificationStatus failed(){
+        return new NotificationStatus("failed");
     }
 
     public String getStatus() {

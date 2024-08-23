@@ -38,8 +38,8 @@ public class NotificationEntity {
         switch (status){
             case "start":
                 return new Notification(id,email,message,NotificationStatus.start());
-            case "cancelled":
-                return new Notification(id,email,message,NotificationStatus.cancelled());
+            case "failed":
+                return new Notification(id,email,message,NotificationStatus.failed());
             case "finished":
                 return new Notification(id,email,message,NotificationStatus.finished());
             default:
