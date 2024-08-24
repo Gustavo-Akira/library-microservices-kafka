@@ -36,6 +36,20 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
+  db_notification:
+    image: postgres:15
+    container_name: postgres_notification_db
+    environment:
+      POSTGRES_USER: library-notification
+      POSTGRES_PASSWORD: library123
+      POSTGRES_DB: library-notification
+    networks:
+      - ms-library
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_notification_data:/var/lib/postgresql/data
+
   app:
     image: akira2002/library-user
     build:
@@ -55,6 +69,25 @@ services:
     depends_on:
       - kafka
       - db
+  notification_app:
+    image: akira2002/library-notification
+    build:
+      context: /notification/
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    networks:
+      - ms-library
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_DATABASE_URL: jdbc:postgresql://db_notification:5432/library-notification
+      DATABASE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_DATABASE_USERNAME: library-notification
+      SPRING_DATABASE_PASSWORD: library123
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - kafka
+      - db_notification
   eureka-server:
     image: eureka-server:latest
     build:
@@ -82,6 +115,8 @@ services:
 
 volumes:
   db_data:
+    driver: local
+  db_notification_data:
     driver: local
 
 networks:  

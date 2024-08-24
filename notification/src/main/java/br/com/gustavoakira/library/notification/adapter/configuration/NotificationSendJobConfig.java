@@ -1,6 +1,7 @@
 package br.com.gustavoakira.library.notification.adapter.configuration;
 
 import br.com.gustavoakira.library.notification.adapter.outbound.job.NotificationItemProcessor;
+import br.com.gustavoakira.library.notification.adapter.outbound.job.NotificationItemWriter;
 import br.com.gustavoakira.library.notification.adapter.outbound.persistence.entity.NotificationEntity;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -10,6 +11,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -39,7 +41,7 @@ public class NotificationSendJobConfig {
                 .<NotificationEntity, NotificationEntity>chunk(50,manager)
                 .reader(itemReader)
                 .processor(processor())
-
+                .writer(itemWriter())
                 .build();
     }
 
@@ -48,6 +50,10 @@ public class NotificationSendJobConfig {
         return new NotificationItemProcessor();
     }
 
+    @Bean
+    public ItemWriter<NotificationEntity> itemWriter(){
+        return new NotificationItemWriter();
+    }
 
     @Bean
     public Job sendNotificationJob(){
