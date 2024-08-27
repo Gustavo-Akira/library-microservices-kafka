@@ -32,7 +32,7 @@ public class UserRepositoryPortImpl implements UserRepositoryPort {
 
     @Override
     public User save(User user) {
-        if(this.repository.findById(user.getId()).isPresent()){
+        if(user.getId() != null && this.repository.findById(user.getId()).isPresent()){
             this.producer.send(new UpdateUserEvent(user.getId().toString(),user.getEmail()));
         }
         return this.repository.save(UserEntity.fromDomain(user)).toDomain();

@@ -4,23 +4,30 @@ import br.com.gustavoakira.library.notification.adapter.outbound.job.Notificatio
 import br.com.gustavoakira.library.notification.adapter.outbound.job.NotificationItemWriter;
 import br.com.gustavoakira.library.notification.adapter.outbound.persistence.entity.NotificationEntity;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Date;
 import java.util.Random;
 
 @Configuration
-@EnableBatchProcessing
 public class NotificationSendJobConfig {
     private final JobRepository repository;
     private final PlatformTransactionManager manager;

@@ -24,7 +24,7 @@ public class UpdatedUserInformationProducer {
 
     public void send(UpdateUserEvent event){
 
-        final CompletableFuture<SendResult<String, UpdateUserEvent>> send = kafkaTemplate.send(topicName, event);
+        final CompletableFuture<SendResult<String, UpdateUserEvent>> send = kafkaTemplate.send(topicName, event.userId(),event);
         send.whenComplete((result,ex)->{
            if(ex == null){
                log.info("Payload enviado: {} with offset {}",event,result.getRecordMetadata().offset());

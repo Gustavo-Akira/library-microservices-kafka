@@ -20,7 +20,7 @@ public class NotificationItemReaderConfig {
 
     @Bean
     public ItemReader<NotificationEntity> notificationItemReader() {
-        String sql = "SELECT * FROM notification where status='start'";
+        String sql = "SELECT * FROM notification_entity where status='start'";
         return new JdbcCursorItemReaderBuilder<NotificationEntity>()
                 .name("notificationItemReader")
                 .sql(sql)

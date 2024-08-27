@@ -4,9 +4,10 @@ import br.com.gustavoakira.library.notification.application.domain.Notification;
 import br.com.gustavoakira.library.notification.application.domain.value_object.NotificationStatus;
 import br.com.gustavoakira.library.notification.application.port.NotificationRepositoryPort;
 import br.com.gustavoakira.library.notification.application.port.NotificationServicePort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class NotificationServicePortPortImpl implements NotificationServicePort {
 
     private final NotificationRepositoryPort port;
