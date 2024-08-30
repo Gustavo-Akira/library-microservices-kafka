@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gatewayserver" />
         <module name="notification" />
+        <module name="books" />
         <module name="common" />
         <module name="eureka-server" />
         <module name="users" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="books" target="1.5" />
       <module name="common" target="21" />
       <module name="eureka-server" target="21" />
       <module name="gatewayserver" target="21" />

@@ -85,6 +85,9 @@ services:
       SPRING_DATABASE_USERNAME: library-notification
       SPRING_DATABASE_PASSWORD: library123
       SPRING_PROFILES_ACTIVE: dev
+    secrets:
+      - username_send_email
+      - password_send_email
     depends_on:
       - kafka
       - db_notification
@@ -123,3 +126,9 @@ networks:
   ms-library:  
     name: ms-library  
     driver: bridge
+
+secrets:
+  username_send_email:
+    enviroment: EMAIL_USER
+  password_send_email:
+    enviroment: EMAIL_PASSWORD
