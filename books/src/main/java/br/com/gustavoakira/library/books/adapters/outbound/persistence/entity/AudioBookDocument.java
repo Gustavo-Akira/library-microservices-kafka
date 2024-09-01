@@ -9,8 +9,6 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "bookData")
-@TypeAlias("AudioBookData")
 @AllArgsConstructor
 @NoArgsConstructor
 public class AudioBookDocument extends BookDocument{

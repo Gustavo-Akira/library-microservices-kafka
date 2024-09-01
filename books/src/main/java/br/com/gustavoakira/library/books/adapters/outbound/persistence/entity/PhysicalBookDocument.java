@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@Document(collection = "bookData")
-@TypeAlias("PhysicalBookData")
 @NoArgsConstructor
 public class PhysicalBookDocument extends BookDocument{
     private String isbn;
@@ -32,7 +30,7 @@ public class PhysicalBookDocument extends BookDocument{
 
     @Override
     public Book toDomain() {
-        return null;
+        return new PhysicalBook(getId(),getAuthor().stream().map(AuthorDocument::toDomain).toList(),getName(),getPublicationDate(),getPrice(),isbn,pages,quantity);
     }
 
     public static PhysicalBookDocument fromDomain(PhysicalBook physicalBook) {
