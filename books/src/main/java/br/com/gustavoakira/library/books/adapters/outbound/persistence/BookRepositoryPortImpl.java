@@ -21,21 +21,22 @@ public class BookRepositoryPortImpl implements BookRepositoryPort {
 
     @Override
     public Mono<Book> findBook(String id) {
+        return Mono.empty();
     }
 
     @Override
     public Mono<Book> saveBook(Book book) {
-
+        return Mono.empty();
     }
 
     @Override
     public Flux<Book> findAllBooks(Integer page) {
-
+        return Flux.empty();
     }
 
     @Override
     public Mono<Boolean> deleteBook(String id) {
-
+        return Mono.empty();
     }
 
 
