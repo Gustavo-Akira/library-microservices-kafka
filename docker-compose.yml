@@ -49,6 +49,19 @@ services:
       - "5433:5432"
     volumes:
       - db_notification_data:/var/lib/postgresql/data
+  db_author:
+    image: postgres:15
+    container_name: postgres_author_db
+    environment:
+      POSTGRES_USER: library-author
+      POSTGRES_PASSWORD: library123
+      POSTGRES_DB: library-author
+    networks:
+      - ms-library
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_author_data:/var/lib/postgresql/data
 
   app:
     image: akira2002/library-user
@@ -91,6 +104,29 @@ services:
     depends_on:
       - kafka
       - db_notification
+  author_app:
+    image: akira2002/library-author
+    build:
+      context: /author/
+      dockerfile: Dockerfile
+      ports:
+        - "8083:8080"
+      networks:
+        - ms-library
+      environment:
+        SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+        SPRING_DATABASE_URL: jdbc:postgresql://db_author:5432/library-author
+        DATABASE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+        SPRING_DATABASE_USERNAME: library-author
+        SPRING_DATABASE_PASSWORD: library123
+        SPRING_PROFILES_ACTIVE: dev
+        CACHE_HOST: redis
+        CACHE_PORT: 6379
+        CACHE_PASSWORD: library-redis
+      depends_on:
+        - kafka
+        - db_author
+        - redis
   eureka-server:
     image: eureka-server:latest
     build:
@@ -114,12 +150,22 @@ services:
     depends_on:
       - app
       - eureka-server
-
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_PASSWORD: library-redis
+      REDIS_PORT: 6379
+      REDIS_DATABASES: 16
 
 volumes:
   db_data:
     driver: local
   db_notification_data:
+    driver: local
+  db_author_data:
     driver: local
 
 networks:  
