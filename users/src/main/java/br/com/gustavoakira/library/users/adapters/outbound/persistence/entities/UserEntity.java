@@ -17,13 +17,14 @@ public class UserEntity {
     private String name;
     private String email;
     private String password;
+    private Long roleId;
 
 
     public User toDomain(){
-        return new User(id, name, email, password);
+        return new User(id, name, email, password, roleId);
     }
 
     public static UserEntity fromDomain(User user){
-        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+        return new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRoleId());
     }
 }

@@ -109,24 +109,24 @@ services:
     build:
       context: /author/
       dockerfile: Dockerfile
-      ports:
-        - "8083:8080"
-      networks:
-        - ms-library
-      environment:
-        SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-        SPRING_DATABASE_URL: jdbc:postgresql://db_author:5432/library-author
-        DATABASE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
-        SPRING_DATABASE_USERNAME: library-author
-        SPRING_DATABASE_PASSWORD: library123
-        SPRING_PROFILES_ACTIVE: dev
-        CACHE_HOST: redis
-        CACHE_PORT: 6379
-        CACHE_PASSWORD: library-redis
-      depends_on:
-        - kafka
-        - db_author
-        - redis
+    ports:
+      - "8083:8080"
+    networks:
+      - ms-library
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_DATABASE_URL: jdbc:postgresql://db_author:5432/library-author
+      DATABASE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_DATABASE_USERNAME: library-author
+      SPRING_DATABASE_PASSWORD: library123
+      SPRING_PROFILES_ACTIVE: dev
+      CACHE_HOST: redis
+      CACHE_PORT: 6379
+      CACHE_PASSWORD: library-redis
+    depends_on:
+      - kafka
+      - db_author
+      - redis
   eureka-server:
     image: eureka-server:latest
     build:
@@ -150,6 +150,9 @@ services:
     depends_on:
       - app
       - eureka-server
+      - notification_app
+      - author_app
+      - auth_server
   redis:
     image: redis:latest
     restart: always
@@ -159,7 +162,14 @@ services:
       REDIS_PASSWORD: library-redis
       REDIS_PORT: 6379
       REDIS_DATABASES: 16
-
+  auth_server:
+    image: quay.io/keycloak/keycloak:25.0.4
+    ports:
+      - "7080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
 volumes:
   db_data:
     driver: local
@@ -175,6 +185,6 @@ networks:
 
 secrets:
   username_send_email:
-    enviroment: EMAIL_USER
+    environment: EMAIL_USER
   password_send_email:
-    enviroment: EMAIL_PASSWORD
+    environment: EMAIL_PASSWORD
